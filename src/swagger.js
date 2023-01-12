@@ -21,20 +21,121 @@ const swaggerSpec =
                 url: "https://www.gnu.org/licenses/gpl-3.0.en.html"
             },
         },
-        components: {
-            securitySchemes: {
-                bearerAuth: {
-                    type: 'http',
-                    scheme: 'bearer',
-                    bearerFormat: 'JWT',
+        paths: {
+            "/api/perretes": {
+                get: {
+                    summary: "Returns all perretes from the system that the user has access to",
+                    tags: [
+                        "perretes"
+                    ],
+                    responses: {
+                        200: {
+                            description: "A list of perretes.",
+                            content: {
+                                "application/json": {
+                                    schema: {
+                                        type: "array",
+                                        items: {
+                                            type: "object",
+                                            properties: {
+                                                id: {
+                                                    type: "integer",
+                                                    format: "int64"
+                                                },
+                                                name: {
+                                                    type: "string"
+                                                }
+                                            }, example: {
+
+                                                "id": 1,
+                                                "name": "Samba"
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
                 }
-            }
+            },
+            "/api/perretes/{id}": {
+                get: {
+                    summary: "Returns a perrete from the system that the user has access to",
+                    tags: [
+                        "perretes"
+                    ],
+                    parameters: [
+                        {
+                            name: "id",
+                            in: "path",
+                            description: "ID of perrete to fetch",
+                            required: true,
+                            type: "integer",
+                            format: "int64"
+                        }
+                    ],
+                    responses: {
+                        200: {
+                            description: "A perrete.",
+                            content: {
+                                "application/json": {
+                                    schema: {
+                                        type: "object",
+                                        properties: {
+                                            name: {
+                                                type: "string"
+
+                                            }
+                                        }, example: {
+                                            "name": "Samba"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                delete: {
+                    summary: "Deletes a perrete from the system",
+                    tags: [
+                        "perretes"
+                    ],
+                    parameters: [
+                        {
+                            name: "id",
+                            in: "path",
+                            description: "ID of perrete to delete",
+                            required: true,
+                            type: "integer",
+                            format: "int64"
+                        }
+                    ],
+                    responses: {
+                        200: {
+                            description: "A perrete.",
+                            content: {
+                                "application/json": {
+                                    schema: {
+                                        type: "object",
+                                        properties: {
+                                            message: {
+                                                type: "string"
+                                            }
+                                        },
+                                        example: {
+                                            "message": "Perrete borrado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
         },
-        security: [{
-            bearerAuth: []
-        }],
     },
-    apis: [`${path.join(__dirname, "./routes/*.js")}`],
+    apis: [path.join(__dirname, 'routes/*.js')]
 };
 const swaggerDocs = (app, port) => {
 
@@ -42,4 +143,4 @@ const swaggerDocs = (app, port) => {
     console.log(`Swagger docs disponible en https://localhost:${port}/api/docs`);
 }
 
-module.exports = {swaggerDocs};
+module.exports = { swaggerDocs };

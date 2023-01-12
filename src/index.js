@@ -10,12 +10,12 @@ app.use(bodyParser.json())
 // nuestra ruta irá en http://localhost:8080/api
 // es bueno que haya un prefijo, sobre todo por el tema de versiones de la API
 var router = require('./routes')
-const { swaggerDocs: SwaggerDocs } = require("./swagger.js");
+//const { swaggerDocs: SwaggerDocs } = require("./swagger.js");
 
 app.use('/api', router)
 
 //arrancamos el servidor
 app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
-    SwaggerDocs(app, port);
+   // SwaggerDocs(app, port);
   });

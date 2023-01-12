@@ -11,11 +11,11 @@ var nombre = perretes.get(req.params.id);
 if (nombre==null)
 { res.json({ message: "No existe el perrete con id " + req.params.id });
 }
-  else {res.json({ message: nombre })
+  else {res.json({ name: nombre })
 }})
 
 router.get('/', function(req, res) {
-    array = Array.from(perretes, ([name, value]) => ({ name, value }));
+    array = Array.from(perretes, ([id, name]) => ({ id, name }));
     console.log(array);
     res.json(array)
 })
