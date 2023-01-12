@@ -6,9 +6,13 @@ perretes.set("2", "Sugus");
 
 
 router.get('/:id', function(req, res) {
+var nombre = perretes.get(req.params.id);
 
-  res.json({ message: perretes.get(req.params.id) })
-})
+if (nombre==null)
+{ res.json({ message: "No existe el perrete con id " + req.params.id });
+}
+  else {res.json({ message: nombre })
+}})
 
 router.get('/', function(req, res) {
     array = Array.from(perretes, ([name, value]) => ({ name, value }));
